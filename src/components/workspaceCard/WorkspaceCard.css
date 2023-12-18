@@ -1,0 +1,19 @@
+.left {
+    float: left;
+    text-align: left;
+    width: 450px;
+}
+
+.left > h3 {
+    margin: 0;
+}
+
+.left > p {
+    margin: 0;
+    color: gray;
+}
+
+.right {
+    float: right;
+    margin: 13px 10px 0 0;
+}

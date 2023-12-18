@@ -1,23 +1,28 @@
-import logo from './logo.svg';
 import './App.css';
+import Login from './containers/login/Login';
+import Navbar from './components/navbar/Navbar';
+import { HashRouter as MyRouter, Route, Redirect, Routes } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import Home from './containers/home/Home';
+import Workspace from './containers/workspace/Workspace';
 
 function App() {
+  const { isLoggedIn } = useSelector((store) => {
+    return {
+      isLoggedIn: store.isLoggedIn
+    }
+  });
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Test
-        </a>
-      </header>
+      <MyRouter>
+        <Navbar />
+        <Routes>
+          {!isLoggedIn && <Route exact path="/login" element={<Login />} />}
+          {!isLoggedIn && <Route exact path="/register" element={<Login />} />}
+          {isLoggedIn  && <Route exact path="/" element={<Home />} />}
+          {isLoggedIn  && <Route exact path="/workspace/:id" element={<Workspace />} />}
+        </Routes>
+      </MyRouter>
     </div>
   );
 }

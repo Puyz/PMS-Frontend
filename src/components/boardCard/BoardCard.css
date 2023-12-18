@@ -1,0 +1,19 @@
+.boardInfo {
+    text-align: left;
+}
+
+.boardInfo > h3 {
+    margin: 0;
+}
+
+.boardInfo > p {
+    margin: 10px 0 0 0;
+    color: grey;
+}
+
+.lock {
+    position: absolute;
+    top: 30px;
+    right: 20px;
+    font-size: 16px;
+}

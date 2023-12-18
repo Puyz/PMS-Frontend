@@ -1,0 +1,9 @@
+.right-menu{
+    position: absolute;
+    right: 40px;
+    top: 10px;
+}
+
+.button-login {
+    margin-right: 10px;
+}
