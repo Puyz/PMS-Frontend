@@ -5,11 +5,17 @@ import './BoardCard.css';
 import moment from 'moment';
 import { deleteBoard } from '../../api/ApiCalls';
 import { refreshBoardAction } from '../../redux/AuthActions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import EditBoardButton from '../editBoardButton/EditBoardButton';
 
 const BoardCard = ({ board }) => {
   const dispatch = useDispatch();
+
+  const { userId } = useSelector((store) => {
+    return {
+      userId: store.id
+    }
+  });
 
   const confirm = async (e) => {
     await deleteBoard(board.id);
@@ -24,8 +30,9 @@ const BoardCard = ({ board }) => {
         borderTop: '2px solid orange'
 
       }}
-      actions={[
-        <EditBoardButton board={board}/>,
+
+      actions={userId === board.createdUserId && [
+        <EditBoardButton board={board} />,
         <Popconfirm
           title="Uyarı"
           description="Panoyu silmek istediğinizden emin misiniz?"
@@ -34,10 +41,9 @@ const BoardCard = ({ board }) => {
           cancelText="Hayır"
         >
           <DeleteOutlined key="delete" />
-
         </Popconfirm>
-
       ]}
+
     >
       <div className='boardInfo'>
         <h3>{board.name}</h3>
@@ -45,7 +51,7 @@ const BoardCard = ({ board }) => {
         {board.privateToWorkspaceMember ? <LockOutlined className='lock' /> : <UnlockOutlined className='lock' />}
       </div>
 
-    </Card>
+    </Card >
   )
 }
 
