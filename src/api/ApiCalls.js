@@ -49,6 +49,16 @@ export const deleteBoard = (boardId) => {
     return axios.delete(`api/Boards/delete?boardId=${boardId}`);
 }
 
+// Task List
+export const getAllTaskListByBoardId = (boardId) => {
+    return axios.get(`api/TaskLists/getallwithtasks?boardId=${boardId}`);
+}
+
+//PUT
+export const updateTaskListOrder = (data) => {
+    return axios.put(`api/TaskLists/updateorder`, data);
+}
+
 
 
 export const setAuthorizationHeader = ({ token, isLoggedIn }) => {
