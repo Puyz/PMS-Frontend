@@ -5,6 +5,7 @@ import { HashRouter as MyRouter, Route, Redirect, Routes } from 'react-router-do
 import { useSelector } from 'react-redux';
 import Home from './containers/home/Home';
 import Workspace from './containers/workspace/Workspace';
+import Board from './containers/board/Board';
 
 function App() {
   const { isLoggedIn } = useSelector((store) => {
@@ -21,6 +22,7 @@ function App() {
           {!isLoggedIn && <Route exact path="/register" element={<Login />} />}
           {isLoggedIn  && <Route exact path="/" element={<Home />} />}
           {isLoggedIn  && <Route exact path="/workspace/:id" element={<Workspace />} />}
+          {isLoggedIn  && <Route exact path="/board/:boardId" element={<Board />} />}
         </Routes>
       </MyRouter>
     </div>

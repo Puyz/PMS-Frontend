@@ -7,9 +7,11 @@ import { deleteBoard } from '../../api/ApiCalls';
 import { refreshBoardAction } from '../../redux/AuthActions';
 import { useDispatch, useSelector } from 'react-redux';
 import EditBoardButton from '../editBoardButton/EditBoardButton';
+import { useNavigate } from 'react-router-dom';
 
 const BoardCard = ({ board }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { userId } = useSelector((store) => {
     return {
@@ -27,10 +29,10 @@ const BoardCard = ({ board }) => {
     <Card
       style={{
         width: 300,
-        borderTop: '2px solid orange'
-
+        borderTop: '2px solid orange',
+        cursor: 'pointer'
+        
       }}
-
       actions={userId === board.createdUserId && [
         <EditBoardButton board={board} />,
         <Popconfirm
@@ -45,7 +47,7 @@ const BoardCard = ({ board }) => {
       ]}
 
     >
-      <div className='boardInfo'>
+      <div className='boardInfo' onClick={() => {navigate(`/board/${board.id}`)}}>
         <h3>{board.name}</h3>
         <p><ClockCircleOutlined /> {moment(board.endDate).format('DD-MM-YYYY')}</p>
         {board.privateToWorkspaceMember ? <LockOutlined className='lock' /> : <UnlockOutlined className='lock' />}

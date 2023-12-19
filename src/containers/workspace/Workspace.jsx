@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import BoardList from '../../components/boardList/BoardList';
-import {  Col, Avatar, Divider, Tooltip, Row } from 'antd';
-import { getWorkspaceById } from '../../api/ApiCalls';
+import { Col, Avatar, Divider, Tooltip, Row } from 'antd';
+import { getAllWorkspaceMemberByWorkspaceId, getWorkspaceById } from '../../api/ApiCalls';
 import { AntDesignOutlined, UserOutlined } from '@ant-design/icons';
 import AddBoardButton from '../../components/addBoardButton/AddBoardButton';
 
 const Workspace = () => {
   const { id } = useParams(); // workspace id
   const [workspace, setWorkspace] = useState();
+  const [workspaceMembers, setWorkspaceMembers] = useState([]);
   const [apiProgress, setApiProgress] = useState(false);
-  
+
 
   useEffect(() => {
     async function getWorkspace() {
@@ -22,7 +23,19 @@ const Workspace = () => {
         setApiProgress(false);
       }
     }
+
+    async function getWorkspaceMembers() {
+      setApiProgress(true);
+      try {
+        const response = await getAllWorkspaceMemberByWorkspaceId(id);
+        setWorkspaceMembers(response.data.data);
+      } finally {
+        setApiProgress(false);
+      }
+    }
+
     getWorkspace();
+    getWorkspaceMembers();
   }, [id]);
   return (
     <div>
@@ -40,7 +53,7 @@ const Workspace = () => {
               </Col>
 
               <Col span={8} style={{ marginTop: '40px' }}>
-                <AddBoardButton workspaceId={id}/>
+                <AddBoardButton workspaceId={id} />
               </Col>
 
               <Col span={8} style={{ marginTop: '40px', right: 0 }}>
@@ -54,34 +67,26 @@ const Workspace = () => {
                     cursor: 'pointer',
                   }}
                 >
-                  <Avatar
-                    style={{
-                      backgroundColor: '#FF00FF',
-                    }}
-                  >
-                    O
-                  </Avatar>
-                  <Avatar
-                    style={{
-                      backgroundColor: '#f56a00',
-                    }}
-                  >
-                    K
-                  </Avatar>
-                  <Tooltip title="Ant User" placement="top">
-                    <Avatar
-                      style={{
-                        backgroundColor: '#87d068',
-                      }}
-                      icon={<UserOutlined />}
-                    />
-                  </Tooltip>
-                  <Avatar
-                    style={{
-                      backgroundColor: '#1677ff',
-                    }}
-                    icon={<AntDesignOutlined />}
-                  />
+                  <Tooltip title={workspace.createdUser.name} placement="top">
+                        <Avatar
+                          style={{
+                            backgroundColor: '#87d068',
+                          }}
+                          icon={<UserOutlined />}
+                        />
+                      </Tooltip>
+                  {workspaceMembers && workspaceMembers.map(member => {
+                    return (
+                      <Tooltip title={member.user.name} placement="top">
+                        <Avatar
+                          style={{
+                            backgroundColor: '#87d068',
+                          }}
+                          icon={<UserOutlined />}
+                        />
+                      </Tooltip>
+                    )
+                  })}
                 </Avatar.Group>
               </Col>
             </Row>

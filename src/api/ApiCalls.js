@@ -23,6 +23,11 @@ export const deleteWorkspace = (workspaceId) => {
     return axios.delete(`api/Workspaces/delete?workspaceId=${workspaceId}`);
 }
 
+// Workspace Member
+export const getAllWorkspaceMemberByWorkspaceId = (workspaceId) => {
+    return axios.get(`api/WorkspaceMembers/getallbyworkspaceidwithusers?workspaceId=${workspaceId}`);
+}
+
 // Workspace Type
 export const getAllWorkspaceType = () => {
     return axios.get(`api/WorkspaceTypes/getall`);
