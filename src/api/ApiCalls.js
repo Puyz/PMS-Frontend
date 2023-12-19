@@ -53,8 +53,6 @@ export const deleteBoard = (boardId) => {
 export const getAllTaskListByBoardId = (boardId) => {
     return axios.get(`api/TaskLists/getallwithtasks?boardId=${boardId}`);
 }
-
-//PUT
 export const updateTaskListOrder = (data) => {
     return axios.put(`api/TaskLists/updateorder`, data);
 }
