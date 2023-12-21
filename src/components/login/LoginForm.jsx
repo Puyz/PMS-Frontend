@@ -67,7 +67,7 @@ const LoginForm = () => {
 
 
                 <Form.Item>
-                    <Button  style={{background: '#1fc5b5'}} type="primary" htmlType="submit">
+                    <Button style={{background: '#1fc5b5'}} type="primary" htmlType="submit">
                         Giriş yap
                     </Button>
                 </Form.Item>

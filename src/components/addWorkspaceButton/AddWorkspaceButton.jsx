@@ -81,7 +81,7 @@ const AddWorkspaceButton = () => {
     return (
         <>
             {contextHolder}
-            <Button size='small' type="primary" shape="circle" onClick={showDrawer} style={{ backgroundColor: '#1fc5b5', marginTop: 20 }}>+</Button>
+            <Button size='small' type="primary" shape="circle" onClick={showDrawer} style={{ backgroundColor: '#1fc5b5', marginTop: 22 }}>+</Button>
             <Drawer title="Çalışma alanı ekle" placement="right" onClose={onClose} open={open}>
                 <div className='form'>
                     <Form

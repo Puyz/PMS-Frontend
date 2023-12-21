@@ -1,10 +1,11 @@
-import { Menu, Button, Flex } from 'antd';
+import { Menu, Button, Flex, Dropdown, Avatar } from 'antd';
 import './Navbar.css';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutHandler } from '../../redux/AuthActions';
 import WorkspaceDropDown from '../workspaceDropdown/WorkspaceDropdown';
 import AddWorkspaceButton from '../addWorkspaceButton/AddWorkspaceButton';
+import { UserOutlined } from '@ant-design/icons';
 
 const Navbar = () => {
     const navigate = useNavigate();
@@ -20,6 +21,13 @@ const Navbar = () => {
         };
     });
 
+    const UserMenu = (
+        <Menu>
+            <Menu.Item key="profile">Profilim</Menu.Item>
+            <Menu.Item key="logout" onClick={() => { dispatch(logoutHandler()); navigate('login'); }}>Çıkış Yap</Menu.Item>
+        </Menu>
+    );
+
     /*
     const onLogoutSuccess = () => {
         dispatch(logoutHandler());
@@ -29,8 +37,8 @@ const Navbar = () => {
     return (
         <Menu mode="horizontal">
 
-            <img src={require("../../assets/full-logo.png")} alt="Logo" style={{ width: '120px', margin: '13px 150px', cursor: 'pointer' }} 
-            onClick={() => {navigate('/')}}/>
+            <img src={require("../../assets/full-logo.png")} alt="Logo" style={{ width: '120px', margin: '13px 150px', cursor: 'pointer' }}
+                onClick={() => { navigate('/') }} />
 
             {isLoggedIn &&
                 <div>
@@ -55,12 +63,13 @@ const Navbar = () => {
                     </>
                     :
                     <div>
-                        <Button onClick={() => {
-                            dispatch(logoutHandler());
-                            navigate('login');
-                        }}>
-                            Çıkış yap
-                        </Button>
+                        <div style={{ display: 'flex', justifyContent: 'flex-end', marginRight: 30 }}>
+                            <Dropdown overlay={UserMenu} placement='bottom'>
+                                <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
+                                    <Avatar size="large" src={require('../../assets/profile.png')} />
+                                </a>
+                            </Dropdown>
+                        </div>
                     </div>
 
                 }

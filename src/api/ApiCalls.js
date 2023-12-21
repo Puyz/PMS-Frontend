@@ -39,6 +39,9 @@ export const getAllWorkspaceType = () => {
 export const getAllBoardsByWorkspaceId = (workspaceId) => {
     return axios.get(`api/Boards/getallbyworkspaceid?workspaceId=${workspaceId}`);
 }
+export const getBoardById = (boardId) => {
+    return axios.get(`api/Boards/getbyid?boardId=${boardId}`);
+}
 export const addBoard = (data) => {
     return axios.post(`api/Boards/add`, data);
 }
@@ -55,6 +58,20 @@ export const getAllTaskListByBoardId = (boardId) => {
 }
 export const updateTaskListOrder = (data) => {
     return axios.put(`api/TaskLists/updateorder`, data);
+}
+export const updateTaskList = (data) => {
+    return axios.put(`api/TaskLists/update`, data);
+}
+export const addTaskList = (data) => {
+    return axios.post(`api/TaskLists/add`, data);
+}
+export const deleteTaskList = (taskListId) => {
+    return axios.delete(`api/TaskLists/delete?taskListId=${taskListId}`);
+}
+
+// Task
+export const addTask = (data) => {
+    return axios.post(`api/Tasks/add`, data);
 }
 
 

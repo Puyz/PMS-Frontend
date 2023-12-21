@@ -9,7 +9,8 @@ const defaultState = {
     token: undefined,
     expiration: undefined,
     refreshWorkspace: false,
-    refreshBoard: false
+    refreshBoard: false,
+    refreshTask: false
 }
 
 const authReducer = (state = { ...defaultState }, action) => {
@@ -21,6 +22,12 @@ const authReducer = (state = { ...defaultState }, action) => {
         return {
             ...action.payload,
             isLoggedIn: true
+        };
+    }
+    else if (action.type === ACTIONS.UPDATE_SUCCESS) {
+        return {
+            ...state,
+            ...action.payload
         };
     }
     else if (action.type === ACTIONS.REFRESH_WORKSPACE) {
@@ -35,10 +42,10 @@ const authReducer = (state = { ...defaultState }, action) => {
             refreshBoard: action.payload
         };
     }
-    else if (action.type === ACTIONS.UPDATE_SUCCESS) {
+    else if (action.type === ACTIONS.REFRESH_TASK) {
         return {
             ...state,
-            ...action.payload
+            refreshTask: action.payload
         };
     }
     return state;

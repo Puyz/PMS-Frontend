@@ -16,7 +16,8 @@ const getStateFromLocalStorage = () => {
         token: undefined,
         expiration: undefined,
         refreshWorkspace: false,
-        refreshBoard: false
+        refreshBoard: false,
+        refreshTask: false
     }
 
     const getStateInLocalStorage = secureLs.get('auth');

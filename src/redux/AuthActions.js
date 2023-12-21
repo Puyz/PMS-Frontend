@@ -26,6 +26,12 @@ export const refreshBoardAction = (payload) => {
         payload: payload
     };
 }
+export const refreshTaskAction = (payload) => {
+    return {
+        type: ACTIONS.REFRESH_TASK,
+        payload: payload
+    };
+}
 
 export const updateSuccessAction = ({displayName, image}) => {
     return {
