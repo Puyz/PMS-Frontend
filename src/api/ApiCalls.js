@@ -73,6 +73,9 @@ export const deleteTaskList = (taskListId) => {
 export const addTask = (data) => {
     return axios.post(`api/Tasks/add`, data);
 }
+export const deleteTask = (taskId) => {
+    return axios.delete(`api/Tasks/delete?taskId=${taskId}`);
+}
 
 
 

@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import './TaskList.css';
-import Task from '../task/Task';
 import { CheckOutlined, CloseOutlined, MoreOutlined } from '@ant-design/icons';
 import { Draggable } from 'react-beautiful-dnd';
 import AddTaskButton from '../addTaskButton/AddTaskButton';
@@ -8,6 +7,7 @@ import { Button, Dropdown, Input, Popconfirm } from 'antd';
 import { deleteTaskList, updateTaskList } from '../../api/ApiCalls';
 import { useDispatch } from 'react-redux';
 import { refreshTaskAction } from '../../redux/AuthActions';
+import TaskCard from '../taskCard/TaskCard';
 
 const TaskList = ({ taskList, index }) => {
 
@@ -86,7 +86,7 @@ const TaskList = ({ taskList, index }) => {
                     <div style={{ height: 450, overflow: 'scroll' }}>
                         {taskList.tasks && taskList.tasks.map(task => {
                             return (
-                                <Task key={task.id} task={task} />
+                                <TaskCard key={task.id} task={task} />
                             )
                         })}
                     </div>
