@@ -60,7 +60,6 @@ const Board = () => {
             }
             await updateTaskListOrder(data);
         }
-
     }
 
 

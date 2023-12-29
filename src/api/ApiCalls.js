@@ -76,6 +76,9 @@ export const addTask = (data) => {
 export const deleteTask = (taskId) => {
     return axios.delete(`api/Tasks/delete?taskId=${taskId}`);
 }
+export const getTaskById = (id) => {
+    return axios.get(`api/Tasks/getbyid?taskId=${id}`);
+}
 
 
 

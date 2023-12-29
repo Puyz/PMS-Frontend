@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import BoardList from '../../components/boardList/BoardList';
-import { Col, Avatar, Divider, Tooltip, Row, Breadcrumb } from 'antd';
+import { Col, Avatar, Divider, Tooltip, Row } from 'antd';
 import { getAllWorkspaceMemberByWorkspaceId, getWorkspaceById } from '../../api/ApiCalls';
-import { AntDesignOutlined, UserOutlined } from '@ant-design/icons';
+import { UserOutlined } from '@ant-design/icons';
 import AddBoardButton from '../../components/addBoardButton/AddBoardButton';
 
 const Workspace = () => {
@@ -78,7 +78,7 @@ const Workspace = () => {
                   </Tooltip>
                   {workspaceMembers && workspaceMembers.map(member => {
                     return (
-                      <Tooltip title={member.user.name} placement="top">
+                      <Tooltip key={member.id} title={member.user.name} placement="top">
                         <Avatar
                           style={{
                             backgroundColor: '#87d068',
