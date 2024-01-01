@@ -1,0 +1,32 @@
+.todoList {
+    position: relative;
+    border-radius: 5px;
+    padding: 0 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.25);
+}
+
+.btnContainer {
+    display: flex;
+}
+
+.editBtn {
+    margin: 0 5px;
+}
+.todoListBtns{
+    position: absolute;
+    top: 10px;
+    right: 20px;
+}
+.editor {
+    border: none;
+    transition: none;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.25);
+    margin: 10px 0;
+    color: #788195;
+    font-size: 16px;
+    font-weight: 500;
+}

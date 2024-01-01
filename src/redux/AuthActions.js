@@ -33,6 +33,13 @@ export const refreshTaskAction = (payload) => {
     };
 }
 
+export const refreshTaskTodoListAction = (payload) => {
+    return {
+        type: ACTIONS.REFRESH_TASK_TODO_LIST,
+        payload: payload
+    };
+}
+
 export const updateSuccessAction = ({displayName, image}) => {
     return {
         type: ACTIONS.UPDATE_SUCCESS,

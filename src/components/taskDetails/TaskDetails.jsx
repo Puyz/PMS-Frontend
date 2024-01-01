@@ -1,20 +1,49 @@
 import React, { useEffect, useState } from 'react';
-import { Avatar, Button, Col, Divider, Drawer, Flex, Row, Select, Space, Tag, Tooltip } from 'antd';
-import { AlignLeftOutlined, FieldTimeOutlined, ReadOutlined, UserOutlined } from '@ant-design/icons';
+import { Avatar, Button, Col, Divider, Drawer, Flex, Popconfirm, Row, Space, Tag, Tooltip } from 'antd';
+import { AlignLeftOutlined, DeleteOutlined, FieldTimeOutlined, PlusOutlined, ReadOutlined, UserOutlined } from '@ant-design/icons';
 import moment from 'moment';
-import { getTaskById } from '../../api/ApiCalls';
+import { deleteTask, getAllTaskTodoListWithTodos, getTaskById } from '../../api/ApiCalls';
+import { useDispatch } from 'react-redux';
+import { refreshTaskAction, refreshTaskTodoListAction } from '../../redux/AuthActions';
+import TaskTodoList from '../../containers/taskTodoList/TaskTodoList';
+import { useSelector } from 'react-redux';
+import AddTaskTodoListButton from '../addTaskTodoListButton/AddTaskTodoListButton';
 
 const TaskDetails = ({ taskId, onClose, open }) => {
 
     const [taskData, setTaskData] = useState();
+    const [taskTodoList, setTaskTodoList] = useState([]);
+    const dispatch = useDispatch();
+
+    const { refreshTaskTodoLists } = useSelector((store) => {
+        return {
+            refreshTaskTodoLists: store.refreshTaskTodoLists
+        }
+
+    })
 
     useEffect(() => {
-        async function getTask() {
-            const response = await getTaskById(taskId);
-            setTaskData(response.data.data);
+        async function getData() {
+            const responseTask = await getTaskById(taskId);
+            setTaskData(responseTask.data.data);
         }
-        getTask();
-    }, [taskId])
+        async function getTodoList() {
+            const responseTodoList = await getAllTaskTodoListWithTodos(taskId);
+            setTaskTodoList(responseTodoList.data.data);
+        }
+        if (refreshTaskTodoLists === true) {
+            getTodoList();
+            dispatch(refreshTaskTodoListAction(false));
+        }
+        getData();
+        getTodoList();
+    }, [taskId, refreshTaskTodoLists])
+
+    const onDelete = async (e) => {
+        await deleteTask(taskId);
+        dispatch(refreshTaskAction(true));
+        onClose();
+    };
 
     return (
         <>
@@ -32,10 +61,16 @@ const TaskDetails = ({ taskId, onClose, open }) => {
                     }}
                     extra={
                         <Space>
-                            <Button onClick={onClose}>Cancel</Button>
-                            <Button onClick={onClose} type="primary">
-                                Submit
-                            </Button>
+                            <AddTaskTodoListButton taskId={taskId}/>
+                            <Popconfirm
+                                title="Uyarı"
+                                description="Görevi silmek istediğinizden emin misiniz?"
+                                onConfirm={onDelete}
+                                okText="Evet"
+                                cancelText="Hayır"
+                            >
+                                <Button type="dashed" danger icon={<DeleteOutlined />} />
+                            </Popconfirm>
                         </Space>
                     }
                 >
@@ -61,7 +96,7 @@ const TaskDetails = ({ taskId, onClose, open }) => {
                                     <Space style={{ marginTop: 15 }}>
                                         {taskData.taskLabels.map((label) => {
                                             return (
-                                                <Tag color={`#${label.color}`}>{label.name}</Tag>
+                                                <Tag key={label.id} color={`#${label.color}`}>{label.name}</Tag>
                                             )
                                         })}
                                     </Space>
@@ -74,7 +109,7 @@ const TaskDetails = ({ taskId, onClose, open }) => {
                                     <Avatar.Group
                                         maxCount={2}
                                         maxPopoverTrigger="click"
-                                        size="large"
+
                                         style={{ marginTop: 15 }}
                                         maxStyle={{
                                             color: '#f56a00',
@@ -102,7 +137,7 @@ const TaskDetails = ({ taskId, onClose, open }) => {
 
 
 
-                        <Flex style={{ marginTop: 50 }}>
+                        <Flex style={{ marginTop: 20 }}>
                             <AlignLeftOutlined style={{ fontSize: 16 }} />
                             <h3 style={{ color: '#7b818f', marginLeft: 5 }}>Açıklama</h3>
                         </Flex>
@@ -111,6 +146,15 @@ const TaskDetails = ({ taskId, onClose, open }) => {
 
                         <Divider />
                     </div>
+
+                    {taskTodoList.length > 0 &&
+                        taskTodoList.map((todoList, index) => {
+                            return (
+                                <TaskTodoList key={todoList.id} todoList={todoList} index={index} />
+                            )
+                        })
+                    }
+
                 </Drawer>
             }
         </>

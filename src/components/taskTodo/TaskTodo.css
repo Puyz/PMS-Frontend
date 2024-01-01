@@ -1,0 +1,31 @@
+.taskTodo {
+    position: relative;
+    margin: 5px 0;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.taskTodo:hover {
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.25);
+}
+
+.moreButton {
+    position: absolute;
+    visibility: hidden;
+    top: 6px;
+    right: 20px;
+}
+
+.taskTodo:hover .moreButton{
+    visibility: visible;
+}
+
+.moreActions{
+    cursor: pointer;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.editTodoButton{
+    margin: 5px 5px 0 0;
+}

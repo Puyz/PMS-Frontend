@@ -1,25 +1,15 @@
-import { Card, Popconfirm, Space, Tag } from 'antd'
+import { Avatar, Card, Space, Tag, Tooltip } from 'antd'
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
-import { refreshTaskAction } from '../../redux/AuthActions';
-import { DeleteOutlined } from '@ant-design/icons';
-import { deleteTask } from '../../api/ApiCalls';
 import TaskDetails from '../taskDetails/TaskDetails';
+import { UserOutlined } from '@ant-design/icons';
 
 const TaskCard = ({ task, index }) => {
-    const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
     const showDrawer = () => {
         setOpen(true);
-        console.log(task)
     };
     const onClose = () => {
         setOpen(false);
-    };
-
-    const confirm = async (e) => {
-        await deleteTask(task.id);
-        dispatch(refreshTaskAction(true));
     };
 
     return (
@@ -32,29 +22,49 @@ const TaskCard = ({ task, index }) => {
                 size='small'
                 onClick={showDrawer}
             >
-                <p style={{ margin: 5 }}>{task.name}</p>
-                {(task.taskLabels.length > 0) &&
-                    <Space size={[0, 8]} wrap>
-                        {task.taskLabels.map((label) => {
+                <div >
+                    <p style={{ margin: 5 }}>{task.name}</p>
+                    {(task.taskLabels.length > 0) &&
+                        <Space size={[0, 8]} wrap>
+                            {task.taskLabels.map((label) => {
+                                return (
+                                    <Tag color={`#${label.color}`}>{label.name}</Tag>
+                                )
+                            })}
+                        </Space>
+                    }
+                </div>
+
+                {(task.taskMembers.length > 0) &&
+                    <Avatar.Group
+                        maxCount={2}
+                        size="small"
+                        style={{ position: 'absolute', top: 20, right: 20 }}
+                        maxStyle={{
+                            color: '#f56a00',
+                            backgroundColor: '#fde3cf',
+                            cursor: 'pointer'
+                        }}
+                    >
+
+                        {task.taskMembers.map(member => {
                             return (
-                                <Tag color={`#${label.color}`}>{label.name}</Tag>
+                                <Tooltip key={member.id} title={member.name} placement="top">
+                                    <Avatar
+                                        style={{
+                                            backgroundColor: '#87d068',
+                                        }}
+                                        icon={<UserOutlined />}
+                                    />
+                                </Tooltip>
                             )
                         })}
-                    </Space>
+                    </Avatar.Group>
                 }
-
-                <Popconfirm
-                    title="Uyarı"
-                    description="Görevi silmek istediğinizden emin misiniz?"
-                    onConfirm={confirm}
-                    okText="Evet"
-                    cancelText="Hayır"
-                >
-                    <DeleteOutlined style={{ fontSize: 16, position: 'absolute', top: 20, right: 10 }} />
-
-                </Popconfirm>
             </Card>
-            <TaskDetails taskId={task.id} onClose={onClose} open={open}/>
+            {open &&
+                <TaskDetails taskId={task.id} onClose={onClose} open={open} />
+            }
         </>
 
     )

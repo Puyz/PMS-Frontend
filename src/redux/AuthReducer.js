@@ -10,7 +10,8 @@ const defaultState = {
     expiration: undefined,
     refreshWorkspace: false,
     refreshBoard: false,
-    refreshTask: false
+    refreshTask: false,
+    refreshTaskTodoLists: false
 }
 
 const authReducer = (state = { ...defaultState }, action) => {
@@ -46,6 +47,12 @@ const authReducer = (state = { ...defaultState }, action) => {
         return {
             ...state,
             refreshTask: action.payload
+        };
+    }
+    else if (action.type === ACTIONS.REFRESH_TASK_TODO_LIST) {
+        return {
+            ...state,
+            refreshTaskTodoLists: action.payload
         };
     }
     return state;

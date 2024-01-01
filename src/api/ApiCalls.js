@@ -80,7 +80,33 @@ export const getTaskById = (id) => {
     return axios.get(`api/Tasks/getbyid?taskId=${id}`);
 }
 
+// Task Todo List
+export const getAllTaskTodoListWithTodos = (taskId) => {
+    return axios.get(`api/TaskTodoLists/getallwithtodo?taskId=${taskId}`);
+}
+export const deleteTaskTodoList = (taskTodoListId) => {
+    return axios.delete(`api/TaskTodoLists/delete?id=${taskTodoListId}`);
+}
+export const updateTaskTodoList = (taskTodoList) => {
+    return axios.put(`api/TaskTodoLists/update`, taskTodoList);
+}
+export const addTaskTodoList = (taskTodoList) => {
+    return axios.post(`api/TaskTodoLists/add`, taskTodoList);
+}
 
+// Task Todo
+export const addTaskTodo = (todo) => {
+    return axios.post(`api/TaskTodos/add`, todo);
+}
+export const updateTaskTodo = (todo) => {
+    return axios.put(`api/TaskTodos/update`, todo);
+}
+export const changeTaskTodoState = (todoId, state) => {
+    return axios.put(`api/TaskTodos/change?id=${todoId}&state=${state}`);
+}
+export const deleteTaskTodo = (todoId) => {
+    return axios.delete(`api/TaskTodos/delete?id=${todoId}`);
+}
 
 export const setAuthorizationHeader = ({ token, isLoggedIn }) => {
     if (isLoggedIn) {
