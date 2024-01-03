@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { addTask } from '../../api/ApiCalls';
 import { refreshTaskAction } from '../../redux/AuthActions';
+import moment from 'moment';
 
 const AddTaskButton = ({ taskListId }) => {
   const [messageApi, contextHolder] = message.useMessage();
@@ -29,12 +30,13 @@ const AddTaskButton = ({ taskListId }) => {
       values.private = false;
     }
     const data = {
+    
       Task: {
         taskListId: taskListId,
         name: values.name,
         description: values.description,
-        createdDate: values.date[0].$d,
-        endDate: values.date[1].$d
+        createdDate: moment(values.date[0].$d),
+        dueDate: moment(values.date[1].$d).add(3, 'hours')
       }
 
     }

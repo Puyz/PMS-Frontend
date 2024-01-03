@@ -38,8 +38,12 @@ const TaskDetails = ({ taskId, onClose, open }) => {
         setTaskComments(responseComments.data.data);
     }
     async function getData() {
-        const responseTask = await getTaskById(taskId);
-        setTaskData(responseTask.data.data);
+        try {
+            const responseTask = await getTaskById(taskId);
+            setTaskData(responseTask.data.data);
+        } catch (error) {
+
+        }
     }
     useEffect(() => {
         getData();
@@ -215,7 +219,7 @@ const TaskDetails = ({ taskId, onClose, open }) => {
                         </>
                     }
 
-                    {editTask && <UpdateTask taskData={taskData} setEditTask={setEditTask}/>}
+                    {editTask && <UpdateTask taskData={taskData} setEditTask={setEditTask} />}
                 </Drawer>
             }
         </>

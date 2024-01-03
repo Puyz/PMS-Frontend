@@ -23,7 +23,7 @@ const TaskList = ({ taskList, index }) => {
         {
             label: <Popconfirm
                 title="Uyarı"
-                description="Görevi silmek istediğinizden emin misiniz?"
+                description="Listeyi silmek istediğinizden emin misiniz?"
                 onConfirm={() => { onDeleteSubmit() }}
                 okText="Evet"
                 cancelText="Hayır"
