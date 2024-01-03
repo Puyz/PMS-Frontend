@@ -18,7 +18,8 @@ const getStateFromLocalStorage = () => {
         refreshWorkspace: false,
         refreshBoard: false,
         refreshTask: false,
-        refreshTaskTodoLists: false
+        refreshTaskTodoLists: false,
+        refreshTaskComments: false
     }
 
     const getStateInLocalStorage = secureLs.get('auth');

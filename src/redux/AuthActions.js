@@ -39,6 +39,12 @@ export const refreshTaskTodoListAction = (payload) => {
         payload: payload
     };
 }
+export const refreshTaskCommentsAction = (payload) => {
+    return {
+        type: ACTIONS.REFRESH_TASK_COMMENTS,
+        payload: payload
+    };
+}
 
 export const updateSuccessAction = ({displayName, image}) => {
     return {

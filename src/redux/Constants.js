@@ -5,3 +5,4 @@ export const REFRESH_WORKSPACE = "refresh_workspace";
 export const REFRESH_BOARD = "refresh_board";
 export const REFRESH_TASK = "refresh_task";
 export const REFRESH_TASK_TODO_LIST = "refresh_task_todo_list";
+export const REFRESH_TASK_COMMENTS = "refresh_task_comments";

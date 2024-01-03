@@ -11,7 +11,8 @@ const defaultState = {
     refreshWorkspace: false,
     refreshBoard: false,
     refreshTask: false,
-    refreshTaskTodoLists: false
+    refreshTaskTodoLists: false,
+    refreshTaskComments: false
 }
 
 const authReducer = (state = { ...defaultState }, action) => {
@@ -53,6 +54,12 @@ const authReducer = (state = { ...defaultState }, action) => {
         return {
             ...state,
             refreshTaskTodoLists: action.payload
+        };
+    }
+    else if (action.type === ACTIONS.REFRESH_TASK_COMMENTS) {
+        return {
+            ...state,
+            refreshTaskComments: action.payload
         };
     }
     return state;
