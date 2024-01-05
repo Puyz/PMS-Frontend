@@ -5,6 +5,9 @@ import axios from "axios";
 export const loginRequest = (credentials) => {
     return axios.post('api/auth/login', credentials);
 }
+export const registerRequest = (credentials) => {
+    return axios.post('api/auth/register', credentials);
+}
 
 // Workspace
 export const getAllWorkspace = (userId) => {
